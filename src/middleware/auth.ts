@@ -19,8 +19,6 @@ listenerMiddleware.startListening({
 listenerMiddleware.startListening({
   actionCreator: logout,
   effect: async (action, listenerApi) => {
-    // console.log("logout middleware")
-    // console.log(action, listenerApi)
     listenerApi.cancelActiveListeners()
 
     localStorage.removeItem("token")
