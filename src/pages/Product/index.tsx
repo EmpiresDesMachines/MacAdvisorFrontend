@@ -20,7 +20,7 @@ import {
 import { useGetProductByIdQuery } from "@/app/services/productsApi"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Preloader } from "@/components/Preloader/idex"
+import { Preloader } from "@/components/Preloader"
 
 export const Product = () => {
   const navigate = useNavigate()
