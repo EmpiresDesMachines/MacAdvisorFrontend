@@ -1,6 +1,7 @@
 import React from "react"
 import type { ProductCategory } from "@/app/types"
 import { useGetProductsByCategoryQuery } from "@/app/services/productsApi"
+import { CategorySummaryMenu } from "@/components/CategorySummaryMenu"
 
 const categories: ProductCategory[] = [
   "MacBook Pro",
@@ -12,6 +13,8 @@ const categories: ProductCategory[] = [
   "Other",
 ] as const
 
+type PC = (typeof categories)[number]
+
 export type Releases = { title: string; id: string; lifetime: number }[]
 
 export const Main = () => {
@@ -19,21 +22,29 @@ export const Main = () => {
     React.useState<(typeof categories)[number]>("MacBook Air")
 
   const changeCategory = (val: ProductCategory) => {
-    setCategory(val)
+    if (val !== category) {
+      setCategory(val)
+    }
+    // setCategory(val)
   }
 
   const { data, isLoading, isError } = useGetProductsByCategoryQuery({
     category,
     limit: 20,
   })
+  console.log("Main data:", data)
 
   if (isLoading) {
-    return "loading"
+    return ""
   }
   if (isError) {
-    return "error"
+    return ""
   }
   if (data) {
-    return "success"
+    return (
+      <>
+        <CategorySummaryMenu onChangeCategory={changeCategory} />
+      </>
+    )
   }
 }
