@@ -1,4 +1,4 @@
-import type { accentColor, Product } from "@/app/types"
+import type { accentColor, Product, Release } from "@/app/types"
 
 export const productionStatusColor = (value: number): accentColor => {
   const color =
@@ -38,10 +38,9 @@ export const differenceBetweenDates = (from: Date, to: Date) => {
 export const prepareReleasesData = (data: Product[]) => {
   const result = []
   for (let i = 0; i < data.length - 1; i++) {
-    const { titles, id, intro } = data[i]
+    const { titles, intro } = data[i]
     result.push({
       title: extractTitle(titles[0]),
-      id,
       intro,
       timeUntilRelease: differenceBetweenDates(
         new Date(intro),
@@ -50,4 +49,30 @@ export const prepareReleasesData = (data: Product[]) => {
     })
   }
   return result
+}
+
+export const prepareGlobalCategoryParams = (data: Product[]) => {
+  const releases: Release[] = prepareReleasesData(removeTimeDuplicates(data))
+
+  const averageTimeBetweenReleases = Math.round(
+    releases.reduce((acc, v) => acc + v.timeUntilRelease, 0) / releases.length,
+  )
+
+  const lastReleaseDate = data[0].intro
+
+  const daysSinceLastRelease = differenceBetweenDates(
+    new Date(),
+    new Date(lastReleaseDate),
+  )
+
+  const approximateProgress = daysSinceLastRelease / averageTimeBetweenReleases
+
+  return {
+    lastRelease: releases[0],
+    daysSinceLastRelease,
+    releases: releases,
+    lastReleaseDate,
+    averageTimeBetweenReleases,
+    approximateProgress,
+  }
 }
