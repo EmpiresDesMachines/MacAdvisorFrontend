@@ -41,3 +41,12 @@ export type User = {
   createdAt: IsoDateString
   updatedAt: IsoDateString
 }
+
+export type Release = {
+  title: string
+  id: string
+  intro: string
+  timeUntilRelease: number
+}
+
+export type accentColor = "green" | "silver" | "orange" | "red"

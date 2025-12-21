@@ -38,9 +38,10 @@ export const differenceBetweenDates = (from: Date, to: Date) => {
 export const prepareReleasesData = (data: Product[]) => {
   const result = []
   for (let i = 0; i < data.length - 1; i++) {
-    const { titles, intro } = data[i]
+    const { titles, id, intro } = data[i]
     result.push({
       title: extractTitle(titles[0]),
+      id,
       intro,
       timeUntilRelease: differenceBetweenDates(
         new Date(intro),
@@ -52,10 +53,22 @@ export const prepareReleasesData = (data: Product[]) => {
 }
 
 export const prepareGlobalCategoryParams = (data: Product[]) => {
-  const releases: Release[] = prepareReleasesData(removeTimeDuplicates(data))
+  const releases: Release[] = prepareReleasesData(
+    removeTimeDuplicates(data),
+  ).slice(0, 10)
+
+  const imgPath = prepareImgPath(data[0].imgs)
 
   const averageTimeBetweenReleases = Math.round(
     releases.reduce((acc, v) => acc + v.timeUntilRelease, 0) / releases.length,
+  )
+  const maxTimeBetweenReleases = Math.max.apply(
+    null,
+    releases.map(v => v.timeUntilRelease),
+  )
+
+  const minTimeBetweenReleases = Math.min(
+    ...releases.map(v => v.timeUntilRelease),
   )
 
   const lastReleaseDate = data[0].intro
@@ -70,9 +83,12 @@ export const prepareGlobalCategoryParams = (data: Product[]) => {
   return {
     lastRelease: releases[0],
     daysSinceLastRelease,
-    releases: releases,
+    releases: releases.slice(1),
     lastReleaseDate,
+    imgPath,
     averageTimeBetweenReleases,
+    maxTimeBetweenReleases,
+    minTimeBetweenReleases,
     approximateProgress,
   }
 }

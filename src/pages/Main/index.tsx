@@ -1,6 +1,7 @@
 import React from "react"
 import type { ProductCategory } from "@/app/types"
 import { useGetProductsByCategoryQuery } from "@/app/services/productsApi"
+import { CategorySummary } from "@/components/CategorySummary"
 import { CategorySummaryMenu } from "@/components/CategorySummaryMenu"
 
 const categories: ProductCategory[] = [
@@ -32,7 +33,6 @@ export const Main = () => {
     category,
     limit: 20,
   })
-  console.log("Main data:", data)
 
   if (isLoading) {
     return ""
@@ -44,6 +44,7 @@ export const Main = () => {
     return (
       <>
         <CategorySummaryMenu onChangeCategory={changeCategory} />
+        <CategorySummary data={data.data} category={category} />
       </>
     )
   }
