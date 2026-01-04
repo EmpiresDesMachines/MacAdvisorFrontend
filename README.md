@@ -1,27 +1,23 @@
-# vite-template-redux
+# Фронтенд часть проекта MacAdvisor.
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+> [!CAUTION]
+> `Требуется Node.js >= 22`
+> Проект находится в стадии разработки, рекомендуется запускать в dev режиме.
+>
+> ```bash
+> npm run dev
+> ```
 
-```sh
-npx tiged reduxjs/redux-templates/packages/vite-template-redux my-app
-```
+[**Бэкенд проекта**](https://github.com/EmpiresDesMachines/MacAdvisor)
 
-## Goals
+---
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+Проект нацелен на помощь пользователям, которые задумываются о покупке нового гаджета от компании Apple. Предоставляя структурированные данные о датах выхода устройств.
 
-## Scripts
+## Основные возможности:
 
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
-
-## Inspiration
-
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+- Показывает **графики интервалов времени выхода** между последними релизами моделей.
+- Отображает **время с момента выхода** последнего устройства интересующей линейки.
+- Рассчитывает **среднее значение периода ожидания** между выходами новых устройств в линейке;
+- Добавляет небольшие **визуальные акценты**, которые подсказывают пользователю, **стоит ли покупать устройство сейчас или лучше немного подождать** до предполагаемого релиза новой модели.
+- Предоставляет **каталог** устройств Apple (начиная с 1998 года), структурированный по категориям и годам выхода.
